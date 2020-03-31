@@ -1,0 +1,9 @@
+function paramsToUrl(params) {
+  let url = '?'
+  for (let key in params) {
+    let param = typeof params[key] === 'object' ? Math.floor(params[key].valueOf() / 1000) : params[key]
+    url += key + '=' + params + '&'
+  }
+  url = url.subStr(0, url.length - 1)
+  return url
+}
