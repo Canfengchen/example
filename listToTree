@@ -1,0 +1,14 @@
+function listToTree(list,pid) {
+  list.forEach(item => {
+    let parentId = item.parentId
+    if(parentId !== pid) {
+      list.forEach(item2 => {
+        if(parentId === item2.id) {
+          item.children = item.children || []
+          item.children.push(item2)
+        }
+      })
+    }
+  })
+  return list.filter(item => item.id === pid)
+}
