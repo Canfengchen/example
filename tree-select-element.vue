@@ -60,6 +60,7 @@ export default {
       })
     }
   },
+  
   // 设置绑定参数
   model: {
     prop: 'value',
