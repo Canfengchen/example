@@ -1,0 +1,46 @@
+checkKey () {
+  // 获取选中的node，除去半选中状态的node,privilegeIds为选中的node的id集合
+  const _this = this
+  const { privilegeIds } = this.formData
+  const idStr = []
+  privilegeIds.forEach(id => {
+    if (_this.childAllCheck(_this.routesDataToMap[id], privilegeIds)) {
+      idStr.push(id)
+    }
+  })
+  return idStr
+},
+routesDataToMap () {
+  // 将数组装换为{id:node}格式，便于拿到id可以直接拿到对应的节点
+  const routeTree = JSON.parse(JSON.stringify(this.routeList))
+  const routeMap = {}
+  routeTree.forEach(ele => {
+    const parentId = ele.id
+    routeTree.forEach(element => {
+      if (parentId === element.parentId) {
+        if (!ele.children) {
+          ele.children = []
+        }
+        ele.children.push(element)
+      }
+    })
+    routeMap[ele.id] = ele
+  })
+  return routeMap
+}
+childAllCheck(obj, ids) {
+  // 检查是否所有children都被选中
+  if (obj && obj.children && obj.children.length > 0) {
+    let flags = true
+    obj.children.forEach(item => {
+      if (!ids.includes(item.id)) {
+        flags = false
+      } else if (item.children && !this.childAllCheck(this.routesDataToMap[item.id], ids)) {
+        flags = false
+      }
+    })
+    return flags
+  } else {
+    return true
+  }
+}
