@@ -8,5 +8,5 @@ function listToTree(list,pid) {
       }
     })
   })
-  return list.filter(item => item.id === pid)
+  return list.filter(item => item.parentId === pid)
 }
