@@ -4,8 +4,8 @@ function listToTree(list,pid) {
     if(parentId !== pid) {
       list.forEach(item2 => {
         if(parentId === item2.id) {
-          item.children = item.children || []
-          item.children.push(item2)
+          item2.children = item2.children || []
+          item2.children.push(item)
         }
       })
     }
