@@ -1,0 +1,73 @@
+// 浮点数加法
+function accAdd (num1, num2) {
+  let r1,r2,m
+  try {
+    r1 = num1.toString().split('.')[1].length
+  } catch (e) {
+    r1 = 0
+  }
+  try {
+    r2 = num2.toString().split('.')[1].length
+  } catch (e) {
+    r2 = 0
+  }
+  m = Math.max(r1, r2)
+  return (num1 * m + num2 * m) / m
+}
+
+
+
+// 浮点数剪发
+function accSub (num1, num2) {
+  let r1,r2,m
+  try {
+    r1 = num1.toString().split('.')[1].length
+  } catch (e) {
+    r1 = 0
+  }
+  try {
+    r2 = num2.toString().split('.')[1].length
+  } catch (e) {
+    r2 = 0
+  }
+  m = Math.max(r1, r2)
+  return ((r1 * m - r2 * m) / m).toFixed(m)
+}
+
+
+
+
+// 浮点数除法
+function accDiv (num1, num2) {
+  let r1,r2,n1,n2
+  try {
+    r1 = num1.toString().split('.')[1].length
+  } catch (e) {
+    r1 = 0
+  }
+  try {
+    r2 = num2.toString().split('.')[1].length
+  } catch (e) {
+    r2 = 0
+  }
+  n1 = Number(num1.toString().replace('.', ''))
+  n2 = Number(num2.toString().replace('.', ''))
+  return (n1 / n2) * Math.pow(10, r1 - r2)
+}
+
+
+// 浮点数乘法
+function accMul (num1, num2) {
+  let n = 0,n1,n2
+  try {
+    n += num1.toString().split('.')[1].length
+  } catch (e) {
+  }
+  try {
+    n += num2.toString().split('.')[1].length
+  } catch (e) {
+  }
+  n1 = Number(num1.toString().replace('.', ''))
+  n2 = Number(num2.toString().replace('.', ''))
+  return (n1 * n2) / Math.pow(10, n)
+}
