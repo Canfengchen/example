@@ -1,4 +1,5 @@
 function deepClone(source) {
+  if (typeof source !== 'object') return; // 不拷贝非引用类型
   let targetObj = source.constructor === Array ? [] : {}
   for (let key in source) {
     if (source.hasOwnProperty(key)) {
