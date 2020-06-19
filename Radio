@@ -1,0 +1,54 @@
+<template>
+  <Radio
+    ref="child"
+    v-bind="$attrs"
+    v-on="$listeners"
+    @click.native.prevent="change"
+  >
+    <slot></slot>
+  </Radio>
+</template>
+
+<script>
+export default {
+  name: 'Radio2',
+  data() {
+    return {
+      evTimeStamp: '', // 防止因为label的冒泡导致触发click两次
+    }
+  },
+  methods: {
+    change () {
+      let now = +new Date()
+      // 防止因为label的冒泡导致触发click两次
+      if (now - this.evTimeStamp < 100) {
+        return
+      }
+      this.evTimeStamp = now
+      if (!this.$refs.child.disabled) {
+        const { currentValue, trueValue, falseValue, group, label } = this.$refs.child
+        // 切换选中状态
+        const checked = !currentValue
+        const value = checked ? trueValue : falseValue
+        this.$emit('input', value)
+        this.$refs.child.currentValue = checked
+        if (group) {
+          if (label !== undefined) {
+            this.$refs.child.parent.change({
+              value: checked ? label : '',
+              checked: checked
+            });
+          }
+        } else {
+          this.$emit('on-change', value);
+          this.$refs.child.dispatch('FormItem', 'on-form-change', value);
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
