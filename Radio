@@ -4,6 +4,7 @@
     v-bind="$attrs"
     v-on="$listeners"
     @click.native.prevent="change"
+    :label="label"
   >
     <slot></slot>
   </Radio>
@@ -11,10 +12,17 @@
 
 <script>
 export default {
+  // 再次点击可取消选中状态
   name: 'Radio2',
-  data() {
+  props: {
+  // 在此处获取label并传给Radio的原因是防止table表格render创建该组件时Radio没有获取到label数据
+    label: {
+      type: [String, Number]
+    }
+  },
+  data () {
     return {
-      evTimeStamp: '', // 防止因为label的冒泡导致触发click两次
+      evTimeStamp: '' // 防止因为label的冒泡导致触发click两次
     }
   },
   methods: {
@@ -24,6 +32,7 @@ export default {
       if (now - this.evTimeStamp < 100) {
         return
       }
+      // console.log(this.label)
       this.evTimeStamp = now
       if (!this.$refs.child.disabled) {
         const { currentValue, trueValue, falseValue, group, label } = this.$refs.child
@@ -33,15 +42,20 @@ export default {
         this.$emit('input', value)
         this.$refs.child.currentValue = checked
         if (group) {
+          console.log('group',{
+            value: checked ? label : '',
+            checked: checked
+          })
           if (label !== undefined) {
             this.$refs.child.parent.change({
               value: checked ? label : '',
               checked: checked
-            });
+            })
           }
         } else {
-          this.$emit('on-change', value);
-          this.$refs.child.dispatch('FormItem', 'on-form-change', value);
+          console.log('nogroup')
+          this.$emit('on-change', value)
+          this.$refs.child.dispatch('FormItem', 'on-form-change', value)
         }
       }
     }
