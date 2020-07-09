@@ -42,10 +42,6 @@ export default {
         this.$emit('input', value)
         this.$refs.child.currentValue = checked
         if (group) {
-          console.log('group',{
-            value: checked ? label : '',
-            checked: checked
-          })
           if (label !== undefined) {
             this.$refs.child.parent.change({
               value: checked ? label : '',
@@ -53,7 +49,6 @@ export default {
             })
           }
         } else {
-          console.log('nogroup')
           this.$emit('on-change', value)
           this.$refs.child.dispatch('FormItem', 'on-form-change', value)
         }
