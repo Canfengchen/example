@@ -17,7 +17,7 @@ function accAdd (num1, num2) {
 
 
 
-// 浮点数剪发
+// 浮点数减法
 function accSub (num1, num2) {
   let r1,r2,m
   try {
