@@ -1,0 +1,3 @@
+// 用于将100000转换为100,000
+reg = /(?!^)(?=(\d{3})+$)/g;
+var result = string1.replace(reg, ',')
