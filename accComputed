@@ -71,3 +71,4 @@ function accMul (num1, num2) {
   n2 = Number(num2.toString().replace('.', ''))
   return (n1 * n2) / Math.pow(10, n)
 }
+
