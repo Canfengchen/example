@@ -23,7 +23,7 @@ function deepClone2(target, map = new Map()) {
     }
     map.set(target, cloneTarget);
     for (const key in target) {
-      cloneTarget[key] = clone(target[key], map);
+      cloneTarget[key] = deepClone2(target[key], map);
     }
     return cloneTarget;
   } else {
